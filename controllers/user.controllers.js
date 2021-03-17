@@ -1,10 +1,7 @@
 const { request, response } = require('express');
-const firebase = require('firebase');
-require('firebase/auth');
 
 // Controller to render the profile.hbs file and serve it on /profile request
 const getProfile = ( req = request, res = response ) => {
-    console.log(firebase.auth().currentUser)
     res.render('pages/profile', {
         nombre: 'Profile',
         profileState: 'active disabled'
