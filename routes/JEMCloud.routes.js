@@ -4,7 +4,8 @@ const { check } = require('express-validator');
 const { 
     getHome,
     getSignIn,
-    getSignUp
+    getSignUp,
+    postUser
 } = require('../controllers/JEMCloud.controllers'); 
 const { emailExists, validateFields } = require('../middlewares/fieldsValidator');
 
@@ -26,7 +27,7 @@ router.post('/sign-up', [
     check('email', 'The email isn´t valid').isEmail(),
     check('email').custom( emailExists ),
     validateFields
-] ,)
+] , postUser);
 
 
 

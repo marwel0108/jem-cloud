@@ -15,6 +15,10 @@ const JEMClouderSchema = Schema({
         type: String,
         require: [true, 'The password is required']
     },
+    state: {
+        type: Boolean,
+        default: true
+    },
     limStorage: {
         type: Number,
         default: 255
@@ -31,7 +35,7 @@ JEMClouderSchema.methods.toJSON = () => {
 
     user.uid = _id;
 
-    return user
+    return user;
 }
 
 module.exports = model('JEMClouder', JEMClouderSchema);

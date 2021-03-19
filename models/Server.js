@@ -10,6 +10,7 @@ const hbs = require('hbs');
 const path = require('path');
 const { request, response } = require('express');
 const cors = require('cors');
+const bodyParser = require('body-parser');
 
 const JEMCloudDB = require('../database/mongoDB.config');
 class Server {
@@ -24,6 +25,7 @@ class Server {
         // Get the port that we will be using from the .env file
         this.port = process.env.PORT;
 
+        // Set up the connection toour DB
         this.connect();
 
         // Execute all the middlewares that might caught and process the request
@@ -40,6 +42,10 @@ class Server {
     middlewares(){
         
         this.app.use( cors() );
+
+        this.app.use( bodyParser.urlencoded({
+            extended: false
+        }) );
 
         this.app.use( express.json() )
         // Set up hbs as out templates engine

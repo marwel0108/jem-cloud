@@ -1,6 +1,6 @@
 const { validationResult  } = require('express-validator');
 const { request, response } = require('express');
-const User = require('../models/User')
+const User = require('../models/JEMClouder')
 
 const validateFields = ( req = request, res = response, next) => {
 

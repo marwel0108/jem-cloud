@@ -3,14 +3,14 @@ const mongoose = require('mongoose')
 class JEMCloudDB {
 
     constructor() {
-        this.url = process.env.MONGODBCNN;
+        this.JEMCloudUrl = process.env.MONGODBCNN;
     }
 
     async JEMCloudConnection() {
 
         try {
             
-            await mongoose.connect(this.url, {
+            await mongoose.connect(this.JEMCloudUrl, {
                 useNewUrlParser: true,
                 useUnifiedTopology: true,
                 useCreateIndex: true,
