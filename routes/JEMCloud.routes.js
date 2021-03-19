@@ -30,5 +30,4 @@ router.post('/sign-up', [
 ] , postUser);
 
 
-
 module.exports = router;
