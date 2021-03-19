@@ -20,7 +20,8 @@ const JEMClouderSchema = Schema({
         default: 255
     },
     currentStorage:{
-        type: Number
+        type: Number,
+        default: 0
     }
 });
 

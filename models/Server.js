@@ -9,8 +9,12 @@ const express = require('express');
 const hbs = require('hbs');
 const path = require('path');
 const { request, response } = require('express');
+const cors = require('cors');
 
+const JEMCloudDB = require('../database/mongoDB.config');
 class Server {
+
+    jemcloudDb = new JEMCloudDB();
 
     constructor() {
 
@@ -20,6 +24,8 @@ class Server {
         // Get the port that we will be using from the .env file
         this.port = process.env.PORT;
 
+        this.connect();
+
         // Execute all the middlewares that might caught and process the request
         this.middlewares();
 
@@ -27,8 +33,15 @@ class Server {
         this.routes();        
     }
 
-    middlewares(){
+    async connect() {
+        await this.jemcloudDb.JEMCloudConnection();
+    }
 
+    middlewares(){
+        
+        this.app.use( cors() );
+
+        this.app.use( express.json() )
         // Set up hbs as out templates engine
         this.app.set('view engine', 'hbs');
 
@@ -38,7 +51,7 @@ class Server {
 
     routes() {
 
-        this.app.use(require('../routes/client.routes'));
+        this.app.use(require('../routes/JEMCloud.routes'));
         this.app.use('/profile', require('../routes/user.routes'));
         this.app.use(require('../routes/errors.routes'));
     }
