@@ -27,25 +27,15 @@ const getSignUp = ( req = request , res = response ) => {
     });
 }
 
-/**
- * TODO: Create a new User
- * [x] Get the data of the user
- * [X] Create the instance of the Model
- * [X] Hash the password
- * [X] Save the document of that user
- */
-
 const postUser = async ( req = request, res = response ) => {
 
     const { name, email, password } = req.body;
     const jemclouder = new JEMClouder({ name, email, password });
-
-    console.log(jemclouder)
     
-    // const salt = bcryptjs.genSaltSync();
-    // jemclouder.password = bcryptjs.hashSync(salt, password);
+    const salt = bcryptjs.genSaltSync();
+    jemclouder.password = bcryptjs.hashSync(password, salt);
 
-    // await jemclouder.save();
+    await jemclouder.save();
 
     res.json({
         jemclouder
