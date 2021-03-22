@@ -7,7 +7,7 @@ const {
     getProfile,
     getFolder,
     getFile
-} = require('../controllers/user.controllers');
+} = require('../controllers/JEMClouder.controllers');
 
 /**
  * Get Routes

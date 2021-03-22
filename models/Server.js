@@ -58,7 +58,8 @@ class Server {
     routes() {
 
         this.app.use(require('../routes/JEMCloud.routes'));
-        this.app.use('/profile', require('../routes/user.routes'));
+        this.app.use('/profile', require('../routes/JEMClouder.routes'));
+        this.app.use('/auth', require('../routes/auth.routes'));
         this.app.use(require('../routes/errors.routes'));
     }
 
