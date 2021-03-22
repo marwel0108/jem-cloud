@@ -2,6 +2,7 @@ const { request, response } = require('express');
 const bcryptjs = require('bcryptjs');
 
 const JEMClouder = require('../models/JEMClouder');
+const generateJWT = require('../helpers/generateJWT');
 
 // Controller to render the sign-in.hbs file and serve it on /sign-in request
 const getSignIn = ( req = request, res = response ) => {
@@ -40,7 +41,6 @@ const postSignIn = async ( req = request, res = response ) => {
     const { email, password } = req.body;
 
     try {
-        // TODO: Check if JEMClouder exists
 
         const jemclouder = await JEMClouder.findOne({ email });
 
@@ -49,8 +49,6 @@ const postSignIn = async ( req = request, res = response ) => {
                 error: 'The email does not exist'
             });
         }
-        
-        // TODO: Check the state of the user
 
         const { state } = jemclouder;
 
@@ -60,8 +58,6 @@ const postSignIn = async ( req = request, res = response ) => {
             });
         }
 
-        // TODO: Check if the password is the same in JEMCloud DB
-
         const nPass = bcryptjs.compareSync( password, jemclouder.password );
 
         if ( !nPass ) {
@@ -70,17 +66,18 @@ const postSignIn = async ( req = request, res = response ) => {
             });
         }
 
-        
+        const token = await generateJWT( jemclouder.id );
 
         res.json({
-            jemclouder
+            jemclouder,
+            token
         })
 
     } catch (err) {
         
         console.log(err);
         res.status(500).json({
-            msg: 'Error in the sign-in process, talk to the backenddev'
+            msg: 'Error in the sign-in process, talk to the backend dev'
         });
     }
     
