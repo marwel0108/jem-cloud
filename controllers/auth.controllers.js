@@ -19,7 +19,7 @@ const getSignUp = ( req = request , res = response ) => {
     });
 }
 
-const postUser = async ( req = request, res = response ) => {
+const postSignUp = async ( req = request, res = response ) => {
 
     const { name, email, password } = req.body;
     const jemclouder = new JEMClouder({ name, email, password });
@@ -35,8 +35,60 @@ const postUser = async ( req = request, res = response ) => {
 
 }
 
+const postSignIn = async ( req = request, res = response ) => {
+
+    const { email, password } = req.body;
+
+    try {
+        // TODO: Check if JEMClouder exists
+
+        const jemclouder = await JEMClouder.findOne({ email });
+
+        if ( !jemclouder ) {
+            return res.status(400).json({
+                error: 'The email does not exist'
+            });
+        }
+        
+        // TODO: Check the state of the user
+
+        const { state } = jemclouder;
+
+        if ( !state ) {
+            return res.status(400).json({
+                error: 'The user is not active'
+            });
+        }
+
+        // TODO: Check if the password is the same in JEMCloud DB
+
+        const nPass = bcryptjs.compareSync( password, jemclouder.password );
+
+        if ( !nPass ) {
+            return res.status(400).json({
+                error: 'The password does not match'
+            });
+        }
+
+        
+
+        res.json({
+            jemclouder
+        })
+
+    } catch (err) {
+        
+        console.log(err);
+        res.status(500).json({
+            msg: 'Error in the sign-in process, talk to the backenddev'
+        });
+    }
+    
+}
+
 module.exports = {
     getSignUp,
     getSignIn,
-    postUser
+    postSignUp,
+    postSignIn
 }
