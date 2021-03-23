@@ -30,9 +30,11 @@ const postSignUp = async ( req = request, res = response ) => {
 
     await jemclouder.save();
 
+    const token = await generateJWT( jemclouder.id );
+
     res.json({
-        jemclouder
-    });
+        token
+    })
 
 }
 
@@ -69,7 +71,6 @@ const postSignIn = async ( req = request, res = response ) => {
         const token = await generateJWT( jemclouder.id );
 
         res.json({
-            jemclouder,
             token
         })
 

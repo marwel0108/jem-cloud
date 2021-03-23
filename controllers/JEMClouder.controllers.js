@@ -2,6 +2,11 @@ const { request, response } = require('express');
 
 // Controller to render the profile.hbs file and serve it on /profile request
 const getProfile = ( req = request, res = response ) => {
+    
+    const { uid } = req;
+
+    console.log(uid);
+
     res.render('pages/profile', {
         nombre: 'Profile',
         profileState: 'active disabled'
