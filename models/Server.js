@@ -8,9 +8,8 @@
 const express = require('express');
 const hbs = require('hbs');
 const path = require('path');
-const { request, response } = require('express');
 const cors = require('cors');
-const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
 
 const JEMCloudDB = require('../database/mongoDB.config');
 class Server {
@@ -43,11 +42,13 @@ class Server {
         
         this.app.use( cors() );
 
-        this.app.use( bodyParser.urlencoded({
+        this.app.use( cookieParser(process.env.COOKIESECRET || '' ));
+
+        this.app.use( express.urlencoded({
             extended: false
         }) );
 
-        this.app.use( express.json() )
+        this.app.use( express.json() );
         // Set up hbs as out templates engine
         this.app.set('view engine', 'hbs');
 

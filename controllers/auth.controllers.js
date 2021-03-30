@@ -3,6 +3,7 @@ const bcryptjs = require('bcryptjs');
 
 const JEMClouder = require('../models/JEMClouder');
 const generateJWT = require('../helpers/generateJWT');
+const cookieConfig = require('../helpers/cookieConfig');
 
 // Controller to render the sign-in.hbs file and serve it on /sign-in request
 const getSignIn = ( req = request, res = response ) => {
@@ -32,9 +33,9 @@ const postSignUp = async ( req = request, res = response ) => {
 
     const token = await generateJWT( jemclouder.id );
 
-    res.json({
-        token
-    })
+    res.cookie('jemclouder', token, cookieConfig);
+
+    res.redirect('/profile');
 
 }
 
@@ -70,9 +71,9 @@ const postSignIn = async ( req = request, res = response ) => {
 
         const token = await generateJWT( jemclouder.id );
 
-        res.json({
-            token
-        })
+        res.cookie('jemclouder', token, cookieConfig);
+
+        res.redirect('/profile');
 
     } catch (err) {
         

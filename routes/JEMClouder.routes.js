@@ -14,8 +14,7 @@ const {
  * Get Routes
  */
 router.get('/', [
-    validateJWT,
-    validateFields
+    validateJWT
 ] , getProfile);
 
 router.get('/folder', getFolder);

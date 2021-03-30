@@ -3,7 +3,7 @@ const { request, response } = require('express');
 
 const validateJWT = ( req = request, res = response, next ) => {
 
-    const token = req.header('x-token');
+    const token = req.signedCookies.jemclouder;
 
     if ( !token ) return res.status(401).json({
         error: 'There is no token on the request'

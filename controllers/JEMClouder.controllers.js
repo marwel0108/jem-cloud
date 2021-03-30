@@ -1,15 +1,21 @@
 const { request, response } = require('express');
 
+const JEMClouder = require('../models/JEMClouder');
+
 // Controller to render the profile.hbs file and serve it on /profile request
-const getProfile = ( req = request, res = response ) => {
-    
+const getProfile = async ( req = request, res = response ) => {
+
     const { uid } = req;
 
-    console.log(uid);
+    let jemclouder = await JEMClouder.findById( uid );
+
+    jemclouder = jemclouder.toJSON();
+
 
     res.render('pages/profile', {
         nombre: 'Profile',
-        profileState: 'active disabled'
+        profileState: 'active disabled',
+        jemclouder
     });
 }
 
