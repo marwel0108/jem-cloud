@@ -10,6 +10,7 @@ const hbs = require('hbs');
 const path = require('path');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
+const expressFileUpload = require('express-fileupload');
 
 const JEMCloudDB = require('../database/mongoDB.config');
 class Server {
@@ -48,12 +49,20 @@ class Server {
             extended: false
         }) );
 
+        this.app.use( express.static(path.join(__dirname, '../public')) );
+
         this.app.use( express.json() );
         // Set up hbs as out templates engine
         this.app.set('view engine', 'hbs');
 
+        this.app.use( expressFileUpload({
+            useTempFiles: true,
+            tempFileDir: '/temp/'
+        }) );
+
         // Set up the partials/components that the project will use 
-        hbs.registerPartials(path.join(__dirname, '../views/partials'));        
+        hbs.registerPartials(path.join(__dirname, '../views/partials')); 
+        
     }
 
     routes() {

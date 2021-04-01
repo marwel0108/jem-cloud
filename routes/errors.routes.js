@@ -2,7 +2,7 @@ const router = require('express').Router();
 
 const { 
     getError404
-} = require('../controllers/errors.controllers');
+} = require('../controllers/index');
 
 router.get('*', getError404);
 

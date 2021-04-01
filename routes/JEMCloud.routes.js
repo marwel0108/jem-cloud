@@ -1,6 +1,6 @@
 const router = require('express').Router();
 
-const getHome = require('../controllers/JEMCloud.controllers'); 
+const getHome = require('../controllers/index'); 
 
 /**
  * Get routes

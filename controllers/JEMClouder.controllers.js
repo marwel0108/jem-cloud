@@ -1,4 +1,5 @@
 const { request, response } = require('express');
+const path = require('path')
 
 const JEMClouder = require('../models/JEMClouder');
 
@@ -21,6 +22,7 @@ const getProfile = async ( req = request, res = response ) => {
 
 // Controller to render the folder.hbs file and serve it on /profile/folder request
 const getFolder = ( req = request, res = response ) => {
+
     res.render('pages/folder', {
         nombre: 'Folder'
     });
@@ -33,9 +35,24 @@ const getFile = ( req = request, res = response ) => {
     });
 }
 
+const postFile = ( req = request, res = response ) => {
+
+    const file = req.files.JEMCloudFile;
+
+    const uploadPath = path.join(__dirname, `../uploads/${file.name}`)
+
+    file.mv(uploadPath, (err) => {
+        if (err) return res.status(500).send(err)
+    })
+
+    res.json({
+        msg: 'Archivo subido'
+    })
+}
 
 module.exports = {
     getProfile,
     getFolder,
-    getFile
+    getFile,
+    postFile
 }

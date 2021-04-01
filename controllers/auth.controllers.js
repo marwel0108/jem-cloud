@@ -2,8 +2,7 @@ const { request, response } = require('express');
 const bcryptjs = require('bcryptjs');
 
 const JEMClouder = require('../models/JEMClouder');
-const generateJWT = require('../helpers/generateJWT');
-const cookieConfig = require('../helpers/cookieConfig');
+const { cookieConfig, generateJWT } = require('../helpers/index');
 
 // Controller to render the sign-in.hbs file and serve it on /sign-in request
 const getSignIn = ( req = request, res = response ) => {

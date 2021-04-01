@@ -1,6 +1,6 @@
 const cookieConfig = {
     httpOnly: true,
-    maxAge: 36000,
+    maxAge: 18000 * 1000,
     signed: true
 }
 

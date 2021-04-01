@@ -1,14 +1,14 @@
 const router = require('express').Router();
 const { check } = require('express-validator');
 
-const { emailExists, validateFields } = require('../middlewares/fieldsValidator');
+const { emailExists, validateFields } = require('../middlewares/index');
 
 const {
     getSignUp,
     getSignIn,
     postSignUp,
     postSignIn
-} = require('../controllers/auth.controllers');
+} = require('../controllers/index');
 
 router.get('/sign-up', getSignUp);
 

@@ -7,8 +7,9 @@ const validateJWT = require('../middlewares/validateJWT');
 const { 
     getProfile,
     getFolder,
-    getFile
-} = require('../controllers/JEMClouder.controllers');
+    getFile,
+    postFile
+} = require('../controllers/index');
 
 /**
  * Get Routes
@@ -17,7 +18,9 @@ router.get('/', [
     validateJWT
 ] , getProfile);
 
-router.get('/folder', getFolder);
+router.get('/folder', [
+    validateJWT
+] , getFolder);
 
 router.get('/file', getFile);
 
@@ -25,5 +28,6 @@ router.get('/file', getFile);
  * Post Routes
  */
 
+router.post('/uploadFile' , postFile)
 
 module.exports = router;
