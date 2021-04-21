@@ -9,7 +9,12 @@
     <h1>{{ jemclouder.name }}</h1>
     <h2><b>Limit of storage: </b>{{ jemclouder.limStorage }}</h2>
     <h2><b>Current storage: </b>{{ jemclouder.currentStorage }}</h2>
-    <a href="/profile/folder">folder</a>
-    <a href="/profile/file">file</a>
+    <form action="/profile/uploadFile" method="post" enctype="multipart/form-data">
+        <input type="file" name="JEMCloudFile" size="50">
+        <input type="submit" value="Subir">
+    </form>
+    {{#each items}}
+        <h3>{{this}}</h3><hr>
+    {{/each}}
 </body>
 </html>

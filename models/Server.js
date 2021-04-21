@@ -46,7 +46,7 @@ class Server {
         this.app.use( cookieParser(process.env.COOKIESECRET || '' ));
 
         this.app.use( express.urlencoded({
-            extended: false
+            extended: true
         }) );
 
         this.app.use( express.static(path.join(__dirname, '../public')) );

@@ -1,18 +1,12 @@
 
-const { getSignIn, getSignUp, postSignIn, postSignUp } = require('./auth.controllers');
-const getError404 = require('./errors.controllers');
-const getHome = require('./JEMCloud.controllers');
-const { getFile, getFolder, getProfile, postFile } = require('./JEMClouder.controllers');
+const AuthControllers = require('./auth.controllers');
+const errorController = require('./errors.controllers');
+const JEMCloudController = require('./JEMCloud.controllers');
+const JEMClouderControllers = require('./JEMClouder.controllers');
 
 module.exports = {
-    getSignIn,
-    getSignUp,
-    postSignIn,
-    postSignUp,
-    getError404,
-    getHome,
-    getFile,
-    getFolder,
-    getProfile, 
-    postFile
+    AuthControllers,
+    errorController,
+    JEMCloudController,
+    JEMClouderControllers
 }

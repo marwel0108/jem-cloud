@@ -4,30 +4,27 @@ const { check } = require('express-validator');
 const { validateFields } = require('../middlewares/fieldsValidator')
 const validateJWT = require('../middlewares/validateJWT');
 
-const { 
-    getProfile,
-    getFolder,
-    getFile,
-    postFile
-} = require('../controllers/index');
+const { JEMClouderControllers } = require('../controllers/index');
 
 /**
  * Get Routes
  */
-router.get('/', [
+router.get('/:pathToElement?', [
     validateJWT
-] , getProfile);
+] , JEMClouderControllers.getProfile);
 
-router.get('/folder', [
-    validateJWT
-] , getFolder);
+// router.get('/folder', [
+//     validateJWT
+// ] , JEMClouderControllers.getFolder);
 
-router.get('/file', getFile);
+// router.get('/file', JEMClouderControllers.getFile);
 
 /**
  * Post Routes
  */
 
-router.post('/uploadFile' , postFile)
+router.post('/:path?',[
+    validateJWT
+] , JEMClouderControllers.postFile)
 
 module.exports = router;

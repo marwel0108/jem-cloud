@@ -1,22 +1,30 @@
 const { request, response } = require('express');
-const path = require('path')
+const fs = require('fs');
+const path = require('path');
+
+const { generateHashedString, moveFilesToStorage } = require('../helpers');
 
 const JEMClouder = require('../models/JEMClouder');
+const File = require('../models/File');
 
 // Controller to render the profile.hbs file and serve it on /profile request
 const getProfile = async ( req = request, res = response ) => {
 
     const { uid } = req;
-
+    const { pathToElement } = req.params;
     let jemclouder = await JEMClouder.findById( uid );
-
     jemclouder = jemclouder.toJSON();
+    let elementos;
 
-
+    const localPath = (pathToElement === undefined) ? '' : pathToElement.split('-').join('/')
+    elementos = fs.readdirSync(path.join(__dirname, `../storage/${uid}/${localPath}`))
+    console.log(localPath);
+    console.log(elementos)
     res.render('pages/profile', {
         nombre: 'Profile',
         profileState: 'active disabled',
-        jemclouder
+        jemclouder,
+        items: [...elementos]
     });
 }
 
@@ -35,19 +43,40 @@ const getFile = ( req = request, res = response ) => {
     });
 }
 
-const postFile = ( req = request, res = response ) => {
+const postFile = async ( req = request, res = response ) => {
 
-    const file = req.files.JEMCloudFile;
+    const path = req.params.path;
+    // const { name, size } = req.files.JEMCloudFile;
+    // const [fileName, ext] = name.split('.');
+    // const hashedName = generateHashedString(fileName);
+    // req.files.JEMCloudFile.name = `${hashedName}.${ext}`;
+    // const { uid } = req;
+    // const today = new Date();
+    // const date = `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`;
+    // // moveFilesToStorage( JEMCloudFile.tempFilePath, JEMCloudFile.name );
+    // const file = new File({ 
+    //     name: fileName,
+    //     hashedName,
+    //     JEMClouder_id: uid,
+    //     extension: ext,
+    //     uploadedAt: date,
+    //     fileSize: size
+    // })
 
-    const uploadPath = path.join(__dirname, `../uploads/${file.name}`)
-
-    file.mv(uploadPath, (err) => {
-        if (err) return res.status(500).send(err)
-    })
-
-    res.json({
-        msg: 'Archivo subido'
-    })
+    try {
+        
+        // const jemFile = await file.save();
+        res.json({
+            path,
+            baseUrl
+        })
+    } catch (err) {
+        console.log(err);
+        return res.status(500).json({
+            err: 'Something went wrong'
+        })
+    }
+    
 }
 
 module.exports = {

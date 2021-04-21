@@ -1,11 +1,11 @@
 const router = require('express').Router();
 
-const getHome = require('../controllers/index'); 
+const { JEMCloudController } = require('../controllers/index'); 
 
 /**
  * Get routes
  */
-router.get('/', getHome );
+router.get('/', JEMCloudController );
 
 
 module.exports = router;

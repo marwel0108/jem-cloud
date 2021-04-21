@@ -1,9 +1,7 @@
 const router = require('express').Router();
 
-const { 
-    getError404
-} = require('../controllers/index');
+const { errorController } = require('../controllers/index');
 
-router.get('*', getError404);
+router.get('*', errorController);
 
 module.exports = router;
