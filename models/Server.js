@@ -49,7 +49,7 @@ class Server {
             extended: true
         }) );
 
-        this.app.use( express.static(path.join(__dirname, '../public')) );
+        this.app.use( express.static(path.join(__dirname, '../public/')) );
 
         this.app.use( express.json() );
         // Set up hbs as out templates engine

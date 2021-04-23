@@ -1,8 +1,10 @@
 const { request, response } = require('express');
 const bcryptjs = require('bcryptjs');
+const fs = require('fs');
+const path = require('path');
 
 const JEMClouder = require('../models/JEMClouder');
-const { cookieConfig, generateJWT, generateHashedString } = require('../helpers/index');
+const { cookieConfig, generateJWT } = require('../helpers/index');
 
 // Controller to render the sign-in.hbs file and serve it on /sign-in request
 const getSignIn = ( req = request, res = response ) => {
@@ -23,15 +25,19 @@ const getSignUp = ( req = request , res = response ) => {
 const postSignUp = async ( req = request, res = response ) => {
 
     const { name, email, password } = req.body;
+    console.log(req.body)
     const jemclouder = new JEMClouder({ name, email, password });
     
-    jemclouder.password = generateHashedString(jemclouder.password);
+    const salt = bcryptjs.genSaltSync();
+    jemclouder.password = bcryptjs.hashSync(password, salt);
 
     await jemclouder.save();
 
     const token = await generateJWT( jemclouder.id );
 
     res.cookie('jemclouder', token, cookieConfig);
+
+    fs.mkdirSync(path.join(__dirname, `../storage/${jemclouder.id}`));
 
     res.redirect('/profile');
 

@@ -1,0 +1,47 @@
+header
+{
+    background-color: #a3d8f3;
+}
+
+main
+{
+    background-color: #0c09a3;
+    height: 615px;
+}
+
+#Email, #Password
+{
+    width: 350px;
+}
+
+img
+{
+    height: 4%;
+    width: 4%;
+}
+article
+{
+    background-color:aliceblue;
+    width: 65%;
+    height: 83%;
+    float: left;
+    padding: 20px;
+    margin: 50px;
+    margin-left: 240px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 22px;
+}
+
+aside img 
+{
+    margin: 80px;
+    width: 30%;
+    height: 30%;
+    float: right;
+}
+
+.registro
+{
+    width: 30%;
+    margin-left: 480px;
+}

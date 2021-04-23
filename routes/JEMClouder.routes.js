@@ -13,17 +13,11 @@ router.get('/:pathToElement?', [
     validateJWT
 ] , JEMClouderControllers.getProfile);
 
-// router.get('/folder', [
-//     validateJWT
-// ] , JEMClouderControllers.getFolder);
-
-// router.get('/file', JEMClouderControllers.getFile);
-
 /**
  * Post Routes
  */
 
-router.post('/:path?',[
+router.post('/:pathToElement?',[
     validateJWT
 ] , JEMClouderControllers.postFile)
 

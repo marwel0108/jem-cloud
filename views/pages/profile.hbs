@@ -5,16 +5,18 @@
 
 <body>
     {{> nav}}
-    {{> component }}
     <h1>{{ jemclouder.name }}</h1>
+    <h1>{{url}}</h1>
     <h2><b>Limit of storage: </b>{{ jemclouder.limStorage }}</h2>
     <h2><b>Current storage: </b>{{ jemclouder.currentStorage }}</h2>
-    <form action="/profile/uploadFile" method="post" enctype="multipart/form-data">
+    <form action="{{url}}" method="post" enctype="multipart/form-data">
         <input type="file" name="JEMCloudFile" size="50">
         <input type="submit" value="Subir">
     </form>
     {{#each items}}
-        <h3>{{this}}</h3><hr>
+        <div class="card mt-5">
+            <a href="{{this.url}}{{this.name}}"><h3>{{this.name}}</h3></a>
+        </div>
     {{/each}}
 </body>
 </html>
