@@ -1,5 +1,5 @@
 const fs = require('fs');
-const path = require('path')
+const path = require('path');
 
 const moveFilesToStorage = ( currentPath, newPath, uid, name ) => {
     

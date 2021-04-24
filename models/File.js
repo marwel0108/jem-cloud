@@ -27,5 +27,13 @@ const FileSchema = Schema({
     }
 });
 
+FileSchema.methods.toJSON = function() {
+    const { _id, __v, path, JEMClouder_id, ...file } = this.toObject();
+
+    file.id = _id;
+
+    return file;
+}
+
 
 module.exports = model('File', FileSchema);

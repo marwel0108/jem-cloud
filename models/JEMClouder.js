@@ -21,9 +21,13 @@ const JEMClouderSchema = Schema({
     },
     limStorage: {
         type: Number,
-        default: 255
+        default: 1048576
     },
     currentStorage:{
+        type: Number,
+        default: 0
+    },
+    remainingStorage: {
         type: Number,
         default: 0
     }

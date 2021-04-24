@@ -6,16 +6,23 @@
 <body>
     {{> nav}}
     <h1>{{ jemclouder.name }}</h1>
-    <h1>{{url}}</h1>
-    <h2><b>Limit of storage: </b>{{ jemclouder.limStorage }}</h2>
+    <h2><b>Limit of storage: </b>1 GB</h2>
     <h2><b>Current storage: </b>{{ jemclouder.currentStorage }}</h2>
-    <form action="{{url}}" method="post" enctype="multipart/form-data">
+    <h2><b>Remaining storage: </b>{{ jemclouder.remainingStorage }}</h2>
+    <form action="{{url}}?type=file" method="post" enctype="multipart/form-data">
         <input type="file" name="JEMCloudFile" size="50">
         <input type="submit" value="Subir">
     </form>
+    <form action="{{url}}?type=folder" method="post">
+        <input type="text" name="folderName">
+        <input type="submit" value="Crear carpeta">
+    </form>
     {{#each items}}
         <div class="card mt-5">
-            <a href="{{this.url}}{{this.name}}"><h3>{{this.name}}</h3></a>
+            <a href="{{this.url}}{{this.name}}?type={{this.type}}&extension={{this.extension}}"><h3>{{this.name}}</h3></a>
+            {{#if this.extension}}
+                <h1>Extension: <b>{{this.extension}}</b></h1>
+            {{/if}}
         </div>
     {{/each}}
 </body>

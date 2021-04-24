@@ -1,7 +1,9 @@
 const jwt = require('jsonwebtoken');
 const { request, response } = require('express');
 
-const validateJWT = ( req = request, res = response, next ) => {
+const { JEMClouder } = require('../models/index')
+
+const validateJWT = async ( req = request, res = response, next ) => {
 
     const token = req.signedCookies.jemclouder;
 
@@ -13,7 +15,15 @@ const validateJWT = ( req = request, res = response, next ) => {
         
         const { uid } = jwt.verify( token, process.env.MYSECRETKEY );
 
+        const { name, currentStorage, remainingStorage } = await JEMClouder.findById( uid );
+
         req.uid = uid;
+
+        req.user = {
+            name,
+            currentStorage,
+            remainingStorage
+        };
 
         next();
     } catch (err) {

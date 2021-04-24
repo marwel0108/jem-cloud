@@ -4,5 +4,7 @@ module.exports = {
     generateJWT: require('./generateJWT'),
     moveFilesToStorage: require('./moveFilesToStorage'),
     fromRouteToPath: require('./fromRouteToPath'),
-    listDir: require('./listDir')
+    listDir: require('./listDir'),
+    byteUnitsDictionary: require('./byteUnitsDicionary'),
+    createFolder: require('./createFolder')
 }
